@@ -1,18 +1,31 @@
 package com.isep.chess;
 
+/**
+ * Class King
+ */
 public class King extends Piece {
-    public King(Position position, int color) {
-        this.position = position;
-        this.color = color;
+
+    //
+    // Fields
+    //
+
+    //
+    // Constructors
+    //
+    public King (Position position, int color) {
+        super(position, color);
     }
 
-    @Override
-    public boolean isValidMove(Position newPosition, Cell[][] board) {
-        return false;
-    }
-
+    //
+    // @Override Methods
+    //
     @Override
     public String toString() {
         return "K";
     }
+
+    //
+    // Methods
+    //
+
 }

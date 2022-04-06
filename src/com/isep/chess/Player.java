@@ -7,7 +7,7 @@ public class Player {
 
     public Player(String name, int color){
         this.name = name ;
-        this.color = color ;
+        this.color = color ; // 1 = Black | 2 = White
     }
 
     public String getName() {

@@ -1,14 +1,18 @@
 package com.isep.chess;
 
+import static java.lang.Boolean.TRUE;
+
 public class Cell {
     private final Position position;
     private boolean isEmpty;
     private Piece currentPiece;
 
-    public Cell(Position position, boolean isEmpty, Piece currentPiece) {
+    public Cell(Position position, Piece currentPiece) {
         this.position = position;
-        this.isEmpty = isEmpty;
-        this.currentPiece = !isEmpty ? currentPiece : null;
+        this.currentPiece = currentPiece;
+        if (currentPiece == null) {
+            isEmpty = TRUE;
+        }
     }
 
     public Position getPosition() {
@@ -22,4 +26,5 @@ public class Cell {
     public Piece getCurrentPiece() {
         return currentPiece;
     }
+
 }

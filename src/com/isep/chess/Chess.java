@@ -1,95 +1,134 @@
 package com.isep.chess;
 
-import java.util.Scanner;
+import com.isep.utils.InputParser;
 
 public class Chess {
 
     private Cell[][] board ;
     private Player[] players ;
     private Player currentPlayer;
+    private InputParser inputParser;
+
 
     public static final String TEXT_RESET = "\u001B[0m";
-    public static final String TEXT_RED = "\u001b[40m";
+    public static final String TEXT_BLACK = "\u001B[30m";
+    public static final String TEXT_YELLOW = "\u001B[33m";
 
     public Chess() {
-        this.board = new Cell[8][8] ;
-        this.players = new Player[2] ;
+        board = new Cell[8][8] ;
+        players = new Player[2] ;
+        inputParser = new InputParser();
     }
 
     public void play(){
         createPlayers() ;
         initialiseBoard() ;
         printBoard() ;
+        start();
     }
 
     private void createPlayers(){
-
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("Veuillez saisir le nom du joueur blanc : ");
-        String name1 = scanner.nextLine();
-        Player player1 = new Player(name1, 0) ;
-        System.out.println("Veuillez saisir le nom du joueur noir : ");
-        String name2 = scanner.nextLine();
-        Player player2 = new Player(name2, 1) ;
-
-        this.players[0] = player1 ;
-        this.players[1] = player2 ;
-
-        this.currentPlayer = player1 ;
-
+        System.out.print("\n");
+        String name1 = inputParser.askStringUser("\n- Saisir le nom du joueur NOIR : ");
+        Player player1 = new Player(name1, 1) ;
+        String name2 = inputParser.askStringUser("- Saisir le nom du joueur BLANC : ");
+        Player player2 = new Player(name2, 2) ;
+        players[0] = player1 ;
+        players[1] = player2 ;
+        currentPlayer = player1 ;
     }
 
     private void initialiseBoard() {
-
         for (int r = 0; r < 8; r++) {
             for (int c = 0; c < 8; c++) {
-
                 Position cellPosition = new Position(c + 1, r + 1);
-                String cellPositionString = cellPosition.toString();
                 Piece cellPiece;
-
-                int pieceColor = cellPositionString.matches("[a-h][12]") ? 0 : 1;    // white if piece is in first two rows
-
-                if (cellPositionString.matches("[ah][18]")) {
-                    cellPiece = new Rook(cellPosition, pieceColor);
-                } else if (cellPositionString.matches("[bg][18]")) {
-                    cellPiece = new Knight(cellPosition, pieceColor);
-                } else if (cellPositionString.matches("[cf][18]")) {
-                    cellPiece = new Bishop(cellPosition, pieceColor);
-                } else if (cellPositionString.matches("[d][18]")) {
-                    cellPiece = new Queen(cellPosition, pieceColor);
-                } else if (cellPositionString.matches("e[18]")) {
-                    cellPiece = new King(cellPosition, pieceColor);
-                } else if (cellPosition.toString().matches("[a-h][27]")) {
-                    cellPiece = new Pawn(cellPosition, pieceColor);
+                if (cellPosition.toString().matches("[ah][1]")) {
+                    cellPiece = new Rook(cellPosition, 1);
+                } else if (cellPosition.toString().matches("[bg][1]")) {
+                    cellPiece = new Knight(cellPosition, 1);
+                } else if (cellPosition.toString().matches("[cf][1]")) {
+                    cellPiece = new Bishop(cellPosition, 1);
+                } else if (cellPosition.toString().matches("[d][1]")) {
+                    cellPiece = new Queen(cellPosition, 1);
+                } else if (cellPosition.toString().matches("[e][1]")) {
+                    cellPiece = new King(cellPosition, 1);
+                } else if (cellPosition.toString().matches("[a-h][2]")) {
+                    cellPiece = new Pawn(cellPosition, 1);
+                } else if (cellPosition.toString().matches("[ah][8]")) {
+                    cellPiece = new Rook(cellPosition, 2);
+                } else if (cellPosition.toString().matches("[bg][8]")) {
+                    cellPiece = new Knight(cellPosition, 2);
+                } else if (cellPosition.toString().matches("[cf][8]")) {
+                    cellPiece = new Bishop(cellPosition, 2);
+                } else if (cellPosition.toString().matches("[d][8]")) {
+                    cellPiece = new Queen(cellPosition, 2);
+                } else if (cellPosition.toString().matches("[e][8]")) {
+                    cellPiece = new King(cellPosition, 2);
+                } else if (cellPosition.toString().matches("[a-h][7]")) {
+                    cellPiece = new Pawn(cellPosition, 2);
                 } else {
                     cellPiece = null;
                 }
-
-                Cell cell = new Cell(cellPosition, cellPiece == null, cellPiece);
+                Cell cell = new Cell(cellPosition, cellPiece);
                 this.board[r][c] = cell;
             }
         }
     }
 
     private void printBoard() {
-        for (int r = 7; r >= 0; r--) {
-            System.out.print(r + 1 + " ");
+        System.out.print("\n\n");
+        System.out.println(TEXT_YELLOW + "   a  b  c  d  e  f  g  h" + TEXT_RESET);
+        for (int r = 0; r < 8; r++) {
+            System.out.print(TEXT_YELLOW + (r + 1) + " " + TEXT_RESET);
             String row;
             for (int c = 0; c < 8; c++) {
                 Cell cell = this.board[r][c];
-
                 if (cell.getIsEmpty()) {
-                    row = " . ";
+                    row = TEXT_YELLOW + " . " + TEXT_RESET;
                 } else {
-                    String pieceColorTextCode = cell.getCurrentPiece().getColor() == 0 ? TEXT_RESET : TEXT_RED;
-                    row = " " + pieceColorTextCode + cell.getCurrentPiece().toString() + TEXT_RESET + " ";
+                    if (cell.getCurrentPiece().getColor() == 1) {
+                        row = " " + TEXT_BLACK + cell.getCurrentPiece().toString() + TEXT_RESET + " ";
+                    } else {
+                        row = " " + cell.getCurrentPiece().toString() + " ";
+                    }
                 }
                 System.out.print(row);
             }
             System.out.print("\n");
         }
-        System.out.println("   a  b  c  d  e  f  g  h");
+    }
+
+    private void start() {
+        int condA = 0;
+        int condB = 0;
+        int condC = 0;
+        while (condA == 0) {
+            while (condB == 0) {
+                System.out.print("\n [ " + currentPlayer.getName() + " ] joue ... ");
+                int selectedRow = inputParser.askIntUser("\n- Saisir la ligne de la pièce à déplacer : ");
+                while (condC == 0) {
+                    if (selectedRow <= 8 && selectedRow >= 1) {
+                        condC = 1;
+                    } else {
+                        System.out.println("\nERROR !");
+                        selectedRow = inputParser.askIntUser("\n- Saisir la ligne de la pièce à déplacer : ");
+                    }
+                }
+                int selectedColumn = inputParser.askColumnUser("- Saisir la colonne de la pièce à déplacer : ");
+
+                if (board[selectedRow-1][selectedColumn-1].getIsEmpty()) {
+                    System.out.println("\nERROR - Pas de pièce à cet endroit !");
+                } else {
+                    if ( currentPlayer.getColor() != board[selectedRow-1][selectedColumn-1].getCurrentPiece().getColor()) {
+                        System.out.println("\nERROR - Cette pièce ne vous appartient pas !");
+                    } else {
+                        condB = 1;
+                    }
+                }
+            }
+        }
+        System.out.println("nextAction");
     }
 
 }

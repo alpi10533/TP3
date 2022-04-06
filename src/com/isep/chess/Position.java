@@ -4,11 +4,6 @@ public class Position {
     private char column;
     private int row;
 
-    public Position (char column, int row) {
-        this.column = column;
-        this.row = row;
-    }
-
     public Position (int column, int row) {
         char[] columnNames = {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'};
         this.column = columnNames[column - 1];

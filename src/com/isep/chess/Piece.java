@@ -1,13 +1,29 @@
 package com.isep.chess;
 
+/**
+ * Abstract Class Piece
+ */
 public abstract class Piece {
-    protected Position position;
-    protected int color;
 
-    public abstract boolean isValidMove(Position position, Cell[][] board);
-    public abstract String toString();
+    //
+    // Fields
+    //
+    private Position position;
+    private final int color;
 
+    //
+    // Constructor
+    //
+    public Piece (Position position, int color) {
+        this.position = position;
+        this.color = color; // 1 = Black | 2 = White
+    }
+
+    //
+    // Methods
+    //
     public int getColor() {
         return color;
     }
+
 }
