@@ -29,9 +29,9 @@ public class Chess {
 
     private void createPlayers(){
         System.out.print("\n");
-        String name1 = inputParser.askStringUser("\n- Saisir le nom du joueur NOIR : ");
+        String name1 = inputParser.askStringUser("\n- Enter the BLACK player's name : ");
         Player player1 = new Player(name1, 1) ;
-        String name2 = inputParser.askStringUser("- Saisir le nom du joueur BLANC : ");
+        String name2 = inputParser.askStringUser("- Enter the WHITE player's name : ");
         Player player2 = new Player(name2, 2) ;
         players[0] = player1 ;
         players[1] = player2 ;
@@ -105,30 +105,29 @@ public class Chess {
         int condC = 0;
         while (condA == 0) {
             while (condB == 0) {
-                System.out.print("\n [ " + currentPlayer.getName() + " ] joue ... ");
-                int selectedRow = inputParser.askIntUser("\n- Saisir la ligne de la pièce à déplacer : ");
+                System.out.print("\n" + currentPlayer.getName() + ", it is your turn  ... ");
+                int selectedRow = inputParser.askIntUser("\n- Enter the row of the piece that you want to move : ");
                 while (condC == 0) {
                     if (selectedRow <= 8 && selectedRow >= 1) {
                         condC = 1;
                     } else {
                         System.out.println("\nERROR !");
-                        selectedRow = inputParser.askIntUser("\n- Saisir la ligne de la pièce à déplacer : ");
+                        selectedRow = inputParser.askIntUser("\n- Enter the row of the piece that you want to move : ");
                     }
                 }
-                int selectedColumn = inputParser.askColumnUser("- Saisir la colonne de la pièce à déplacer : ");
+                int selectedColumn = inputParser.askColumnUser("- Enter the column of the piece that you want to move : ");
 
                 if (board[selectedRow-1][selectedColumn-1].getIsEmpty()) {
-                    System.out.println("\nERROR - Pas de pièce à cet endroit !");
+                    System.out.println("\nERROR - No piece at this position !");
                 } else {
                     if ( currentPlayer.getColor() != board[selectedRow-1][selectedColumn-1].getCurrentPiece().getColor()) {
-                        System.out.println("\nERROR - Cette pièce ne vous appartient pas !");
+                        System.out.println("\nERROR - This piece it is not yours !");
                     } else {
                         condB = 1;
                     }
                 }
             }
         }
-        System.out.println("nextAction");
     }
 
 }
