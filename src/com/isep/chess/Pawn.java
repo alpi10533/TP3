@@ -13,15 +13,7 @@ public class Pawn extends Piece {
     // Constructors
     //
     public Pawn (Position position, int color) {
-        super(position, color);
-    }
-
-    //
-    // @Override Methods
-    //
-    @Override
-    public String toString() {
-        return "P";
+        super(position, color, "P", false);
     }
 
     //

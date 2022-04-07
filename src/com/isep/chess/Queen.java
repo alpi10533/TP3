@@ -13,15 +13,7 @@ public class Queen extends Piece {
     // Constructors
     //
     public Queen (Position position, int color) {
-        super(position, color);
-    }
-
-    //
-    // @Override Methods
-    //
-    @Override
-    public String toString() {
-        return "Q";
+        super(position, color, "Q", false);
     }
 
     //

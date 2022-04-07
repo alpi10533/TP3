@@ -47,7 +47,7 @@ public class InputParser {
         }
       } else {
         System.out.println("\nERROR !");
-        System.out.print(question);
+        System.out.print("\n"+question);
         input = scanner.next();
       }
     }

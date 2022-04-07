@@ -1,21 +1,38 @@
 package com.isep.chess;
 
+import java.util.Arrays;
+
+/**
+ * Class Position
+ */
 public class Position {
-    private char column;
+
+    //
+    // Fields
+    //
+    private final String[] columnNames;
+    private String column;
     private int row;
 
+    //
+    // Constructors
+    //
     public Position (int column, int row) {
-        char[] columnNames = {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'};
+        columnNames = new String[]{"a", "b", "c", "d", "e", "f", "g", "h"};
         this.column = columnNames[column - 1];
         this.row = row;
     }
 
-    public char getColumn() {
+    //
+    // Methods
+    //
+    public String getColumn() {
         return column;
     }
 
     public int getColumnInt() {
-        return column - 96;     // 97 = a
+        int[] columnValues = {1, 2, 3, 4, 5, 6, 7, 8};
+        return columnValues[Arrays.binarySearch(columnNames, column)];
     }
 
     public int getRow() {
@@ -25,4 +42,5 @@ public class Position {
     public String toString() {
         return column + String.valueOf(row);
     }
+
 }

@@ -13,15 +13,7 @@ public class Knight extends Piece {
     // Constructors
     //
     public Knight (Position position, int color) {
-        super(position, color);
-    }
-
-    //
-    // @Override Methods
-    //
-    @Override
-    public String toString() {
-        return "N";
+        super(position, color, "N", false);
     }
 
     //

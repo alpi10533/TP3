@@ -13,15 +13,7 @@ public class Bishop extends Piece {
     // Constructors
     //
     public Bishop (Position position, int color) {
-        super(position, color);
-    }
-
-    //
-    // @Override Methods
-    //
-    @Override
-    public String toString() {
-        return "B";
+        super(position, color, "B", false);
     }
 
     //

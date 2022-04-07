@@ -13,15 +13,7 @@ public class Rook extends Piece {
     // Constructors
     //
     public Rook (Position position, int color) {
-        super(position, color);
-    }
-
-    //
-    // @Override Methods
-    //
-    @Override
-    public String toString() {
-        return "R";
+        super(position, color, "R", false);
     }
 
     //

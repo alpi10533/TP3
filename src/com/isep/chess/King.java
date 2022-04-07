@@ -13,15 +13,7 @@ public class King extends Piece {
     // Constructors
     //
     public King (Position position, int color) {
-        super(position, color);
-    }
-
-    //
-    // @Override Methods
-    //
-    @Override
-    public String toString() {
-        return "K";
+        super(position, color, "K", false);
     }
 
     //
