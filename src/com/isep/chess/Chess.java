@@ -44,17 +44,18 @@ public class Chess {
             for (int c = 0; c < 8; c++) {
                 Position cellPosition = new Position(c + 1, r + 1);
                 Piece cellPiece;
+                /***
                 if (cellPosition.toString().matches("[ah][1]")) {
                     cellPiece = new Rook(cellPosition, 1);
                 } else if (cellPosition.toString().matches("[bg][1]")) {
                     cellPiece = new Knight(cellPosition, 1);
                 } else if (cellPosition.toString().matches("[cf][1]")) {
                     cellPiece = new Bishop(cellPosition, 1);
-                } else if (cellPosition.toString().matches("[d][1]")) {
+                } **/if (cellPosition.toString().matches("[d][1]")) {
                     cellPiece = new Queen(cellPosition, 1);
                 } else if (cellPosition.toString().matches("[e][1]")) {
                     cellPiece = new King(cellPosition, 1);
-                } else if (cellPosition.toString().matches("[a-h][2]")) {
+                } /**else if (cellPosition.toString().matches("[a-h][2]")) {
                     cellPiece = new Pawn(cellPosition, 1);
                 } else if (cellPosition.toString().matches("[ah][8]")) {
                     cellPiece = new Rook(cellPosition, 2);
@@ -64,11 +65,11 @@ public class Chess {
                     cellPiece = new Bishop(cellPosition, 2);
                 } else if (cellPosition.toString().matches("[d][8]")) {
                     cellPiece = new Queen(cellPosition, 2);
-                } else if (cellPosition.toString().matches("[e][8]")) {
+                } **/else if (cellPosition.toString().matches("[e][8]")) {
                     cellPiece = new King(cellPosition, 2);
-                } else if (cellPosition.toString().matches("[a-h][7]")) {
+                } /**else if (cellPosition.toString().matches("[a-h][7]")) {
                     cellPiece = new Pawn(cellPosition, 2);
-                } else {
+                } **/else {
                     cellPiece = null;
                 }
                 Cell cell = new Cell(cellPosition, cellPiece);
@@ -121,6 +122,11 @@ public class Chess {
                     System.out.print("\n" + currentPlayer.getName() + ", your turn is restarting  ... \n");
                 } else if (success == 2) {
                     System.out.print("\n" + currentPlayer.getName() + ", it is your turn  ... \n");
+                } else if (success == 4) {
+                    System.out.print("\n" + " GAME OVER !");
+                    condB1 = 1;
+                    condB2 = 1;
+                    condA = 1;
                 }
                 selectedRow = inputParser.askIntUser("\n- Enter the row of the piece that you want to move : ");
                 while (condC == 0) {
@@ -168,7 +174,18 @@ public class Chess {
                             board[selectedRow-1][selectedColumn-1].setCurrentPiece(null);
                             printBoard();
                             condB2 = 1;
-                            success = 2;
+                            int nbOfKinks = 0;
+                            for (int r = 0; r < 8; r++) {
+                                for (int c = 0; c < 8; c++) {
+                                    if (board[r][c].getCurrentPiece() != null && Objects.equals(board[r][c].getCurrentPiece().toString(), "K"))
+                                        nbOfKinks++;
+                                }
+                            }
+                            if (nbOfKinks == 1){
+                                success = 4;
+                            } else {
+                                success = 2;
+                            }
                         } else {
                             System.out.println("\nYour move has not been validated !");
                             condB2 = 1;
@@ -184,7 +201,18 @@ public class Chess {
                         board[selectedRow-1][selectedColumn-1].setCurrentPiece(null);
                         printBoard();
                         condB2 = 1;
-                        success = 2;
+                        int nbOfKinks = 0;
+                        for (int r = 0; r < 8; r++) {
+                            for (int c = 0; c < 8; c++) {
+                                if (board[r][c].getCurrentPiece() != null && Objects.equals(board[r][c].getCurrentPiece().toString(), "K"))
+                                    nbOfKinks++;
+                            }
+                        }
+                        if (nbOfKinks == 1){
+                            success = 4;
+                        } else {
+                            success = 2;
+                        }
                     } else {
                         System.out.println("\nYour move has not been validated !");
                         condB2 = 1;

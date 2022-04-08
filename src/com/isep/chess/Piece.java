@@ -75,8 +75,8 @@ public abstract class Piece {
                         if (board[(position.getRow()-1)-1][(position.getColumnInt()-1)].getCurrentPiece().getColor() != color) {
                             valid.add(String.valueOf(position.getRow()-1)+String.valueOf(position.getColumnInt()));
                         }
-                    } else if (board[(position.getRow()-1)+1][(position.getColumnInt()-1)].getIsEmpty()){
-                        valid.add(String.valueOf(position.getRow()+1)+String.valueOf(position.getColumnInt()));
+                    } else if (board[(position.getRow()-1)-1][(position.getColumnInt()-1)].getIsEmpty()){
+                        valid.add(String.valueOf(position.getRow()-1)+String.valueOf(position.getColumnInt()));
                     }
                 }
                 //délacement vers l'extérieur BLANC
@@ -85,8 +85,8 @@ public abstract class Piece {
                         if (board[(position.getRow()-1)+1][(position.getColumnInt()-1)].getCurrentPiece().getColor() != color) {
                             valid.add(String.valueOf(position.getRow()+1)+String.valueOf(position.getColumnInt()));
                         }
-                    } else if (board[(position.getRow()-1)-1][(position.getColumnInt()-1)].getIsEmpty()){
-                        valid.add(String.valueOf(position.getRow()-1)+String.valueOf(position.getColumnInt()));
+                    } else if (board[(position.getRow()-1)+1][(position.getColumnInt()-1)].getIsEmpty()){
+                        valid.add(String.valueOf(position.getRow()+1)+String.valueOf(position.getColumnInt()));
                     }
                 }
                 //déplacement droit
@@ -109,7 +109,7 @@ public abstract class Piece {
                         valid.add(String.valueOf(position.getRow())+String.valueOf(position.getColumnInt()-1));
                     }
                 }
-                //déplacement diagonale vers l'extérieur droite NOIR
+                //déplacement diagonale vers le centre droite NOIR
                 if (board[(position.getRow()-1)][(position.getColumnInt()-1)].getCurrentPiece().getColor() == 1 && (position.getRow()-1)+1<=7 && (position.getColumnInt()-1)+1<=7) {
                     if (!board[(position.getRow()-1)+1][((position.getColumnInt()-1)+1)].getIsEmpty()){
                         if (board[(position.getRow()-1)+1][((position.getColumnInt()-1)+1)].getCurrentPiece().getColor() != color) {
@@ -119,7 +119,7 @@ public abstract class Piece {
                         valid.add(String.valueOf(position.getRow()+1)+String.valueOf(position.getColumnInt()+1));
                     }
                 }
-                //déplacement diagonale vers l'extérieur gauche NOIR
+                //déplacement diagonale vers le centre gauche NOIR
                 if (board[(position.getRow()-1)][(position.getColumnInt()-1)].getCurrentPiece().getColor() == 1 && (position.getRow()-1)+1<=7 && (position.getColumnInt()-1)-1>=0) {
                     if (!board[(position.getRow()-1)+1][(position.getColumnInt()-1)-1].getIsEmpty()){
                         if (board[(position.getRow()-1)+1][(position.getColumnInt()-1)-1].getCurrentPiece().getColor() != color) {
@@ -129,7 +129,7 @@ public abstract class Piece {
                         valid.add(String.valueOf(position.getRow()+1)+String.valueOf(position.getColumnInt()-1));
                     }
                 }
-                //déplacement diagonale vers le centre droite NOIR
+                //déplacement diagonale vers l'extérieur droite NOIR
                 if (board[(position.getRow()-1)][(position.getColumnInt()-1)].getCurrentPiece().getColor() == 1 && (position.getRow()-1)-1>=0 && (position.getColumnInt()-1)+1<=7) {
                     if (!board[(position.getRow()-1)-1][((position.getColumnInt()-1)+1)].getIsEmpty()){
                         if (board[(position.getRow()-1)-1][((position.getColumnInt()-1)+1)].getCurrentPiece().getColor() != color) {
@@ -139,7 +139,7 @@ public abstract class Piece {
                         valid.add(String.valueOf(position.getRow()-1)+String.valueOf(position.getColumnInt()+1));
                     }
                 }
-                //déplacement diagonale vers le centre gauche NOIR
+                //déplacement diagonale vers l'extérieur gauche NOIR
                 if (board[(position.getRow()-1)][(position.getColumnInt()-1)].getCurrentPiece().getColor() == 1 && (position.getRow()-1)-1>=0 && (position.getColumnInt()-1)-1>=0) {
                     if (!board[(position.getRow()-1)-1][((position.getColumnInt()-1)-1)].getIsEmpty()){
                         if (board[(position.getRow()-1)-1][((position.getColumnInt()-1)-1)].getCurrentPiece().getColor() != color) {
@@ -370,6 +370,398 @@ public abstract class Piece {
                     return false;
                 }
             }
+
+            case "B" -> {
+                //déplacement diagonale vers le centre droite NOIR
+                int i = 1;
+                while (true) {
+                    if (board[(position.getRow()-1)][(position.getColumnInt()-1)].getCurrentPiece().getColor() == 1 && (position.getRow()-1)+i<=7 && (position.getColumnInt()-1)+i<=7) {
+                        if (board[(position.getRow()-1)+i][(position.getColumnInt()-1)+i].getIsEmpty()) {
+                            valid.add(String.valueOf(position.getRow()+i) + String.valueOf(position.getColumnInt()+i));
+                            i++;
+                        } else if (board[(position.getRow()-1)+i][(position.getColumnInt()-1)+i].getCurrentPiece().getColor() != color){
+                            valid.add(String.valueOf(position.getRow()+i) + String.valueOf(position.getColumnInt()+i));
+                            break;
+                        } else {
+                            break;
+                        }
+                    } else {
+                        break;
+                    }
+                }
+                //déplacement diagonale vers le centre gauche NOIR
+                i = 1;
+                while (true) {
+                    if (board[(position.getRow()-1)][(position.getColumnInt()-1)].getCurrentPiece().getColor() == 1 && (position.getRow()-1)+i<=7 && (position.getColumnInt()-1)-i>=0) {
+                        if (board[(position.getRow()-1)+i][(position.getColumnInt()-1)-i].getIsEmpty()) {
+                            valid.add(String.valueOf(position.getRow()+i) + String.valueOf(position.getColumnInt()-i));
+                            i++;
+                        } else if (board[(position.getRow()-1)+i][(position.getColumnInt()-1)-i].getCurrentPiece().getColor() != color){
+                            valid.add(String.valueOf(position.getRow()+i) + String.valueOf(position.getColumnInt()-i));
+                            break;
+                        } else {
+                            break;
+                        }
+                    } else {
+                        break;
+                    }
+                }
+                //déplacement diagonale vers l'extérieur droite NOIR
+                i = 1;
+                while (true) {
+                    if (board[(position.getRow()-1)][(position.getColumnInt()-1)].getCurrentPiece().getColor() == 1 && (position.getRow()-1)-i>=0 && (position.getColumnInt()-1)+i<=7) {
+                        if (board[(position.getRow()-1)-i][(position.getColumnInt()-1)+i].getIsEmpty()) {
+                            valid.add(String.valueOf(position.getRow()-i) + String.valueOf(position.getColumnInt()+i));
+                            i++;
+                        } else if (board[(position.getRow()-1)-i][(position.getColumnInt()-1)+i].getCurrentPiece().getColor() != color){
+                            valid.add(String.valueOf(position.getRow()-i) + String.valueOf(position.getColumnInt()+i));
+                            break;
+                        } else {
+                            break;
+                        }
+                    } else {
+                        break;
+                    }
+                }
+                //déplacement diagonale vers l'extérieur gauche NOIR
+                i = 1;
+                while (true) {
+                    if (board[(position.getRow()-1)][(position.getColumnInt()-1)].getCurrentPiece().getColor() == 1 && (position.getRow()-1)-i>=0 && (position.getColumnInt()-1)-i>=0) {
+                        if (board[(position.getRow()-1)-i][(position.getColumnInt()-1)-i].getIsEmpty()) {
+                            valid.add(String.valueOf(position.getRow()-i) + String.valueOf(position.getColumnInt()-i));
+                            i++;
+                        } else if (board[(position.getRow()-1)-i][(position.getColumnInt()-1)+i].getCurrentPiece().getColor() != color){
+                            valid.add(String.valueOf(position.getRow()-i) + String.valueOf(position.getColumnInt()-i));
+                            break;
+                        } else {
+                            break;
+                        }
+                    } else {
+                        break;
+                    }
+                }
+                //déplacement diagonale vers l'extérieur droite BLANC
+                i = 1;
+                while (true) {
+                    if (board[(position.getRow()-1)][(position.getColumnInt()-1)].getCurrentPiece().getColor() == 2 && (position.getRow()-1)+i<=7 && (position.getColumnInt()-1)+i<=7) {
+                        if (board[(position.getRow()-1)+i][(position.getColumnInt()-1)+i].getIsEmpty()) {
+                            valid.add(String.valueOf(position.getRow()+i) + String.valueOf(position.getColumnInt()+i));
+                            i++;
+                        } else if (board[(position.getRow()-1)+i][(position.getColumnInt()-1)+i].getCurrentPiece().getColor() != color){
+                            valid.add(String.valueOf(position.getRow()+i) + String.valueOf(position.getColumnInt()+i));
+                            break;
+                        } else {
+                            break;
+                        }
+                    } else {
+                        break;
+                    }
+                }
+                //déplacement diagonale vers l'extérieur gauche BLANC
+                i = 1;
+                while (true) {
+                    if (board[(position.getRow()-1)][(position.getColumnInt()-1)].getCurrentPiece().getColor() == 2 && (position.getRow()-1)+i<=7 && (position.getColumnInt()-1)-i>=0) {
+                        if (board[(position.getRow()-1)+i][(position.getColumnInt()-1)-i].getIsEmpty()) {
+                            valid.add(String.valueOf(position.getRow()+i) + String.valueOf(position.getColumnInt()-i));
+                            i++;
+                        } else if (board[(position.getRow()-1)+i][(position.getColumnInt()-1)-i].getCurrentPiece().getColor() != color){
+                            valid.add(String.valueOf(position.getRow()+i) + String.valueOf(position.getColumnInt()-i));
+                            break;
+                        } else {
+                            break;
+                        }
+                    } else {
+                        break;
+                    }
+                }
+                //déplacement diagonale vers le centre droite BLANC
+                i = 1;
+                while (true) {
+                    if (board[(position.getRow()-1)][(position.getColumnInt()-1)].getCurrentPiece().getColor() == 2 && (position.getRow()-1)-i>=0 && (position.getColumnInt()-1)+i<=7) {
+                        if (board[(position.getRow()-1)-i][(position.getColumnInt()-1)+i].getIsEmpty()) {
+                            valid.add(String.valueOf(position.getRow()-i) + String.valueOf(position.getColumnInt()+i));
+                            i++;
+                        } else if (board[(position.getRow()-1)-i][(position.getColumnInt()-1)+i].getCurrentPiece().getColor() != color){
+                            valid.add(String.valueOf(position.getRow()-i) + String.valueOf(position.getColumnInt()+i));
+                            break;
+                        } else {
+                            break;
+                        }
+                    } else {
+                        break;
+                    }
+                }
+                //déplacement diagonale vers le centre gauche BLANC
+                i = 1;
+                while (true) {
+                    if (board[(position.getRow()-1)][(position.getColumnInt()-1)].getCurrentPiece().getColor() == 2 && (position.getRow()-1)-i>=0 && (position.getColumnInt()-1)-i>=0) {
+                        if (board[(position.getRow()-1)-i][(position.getColumnInt()-1)-i].getIsEmpty()) {
+                            valid.add(String.valueOf(position.getRow()-i) + String.valueOf(position.getColumnInt()-i));
+                            i++;
+                        } else if (board[(position.getRow()-1)-i][(position.getColumnInt()-1)+i].getCurrentPiece().getColor() != color){
+                            valid.add(String.valueOf(position.getRow()-i) + String.valueOf(position.getColumnInt()-i));
+                            break;
+                        } else {
+                            break;
+                        }
+                    } else {
+                        break;
+                    }
+                }
+                if (valid.contains(expected)){
+                    return true;
+                } else {
+                    return false;
+                }
+            }
+
+            case "Q" -> {
+                //déplacement droite
+                int i = 1;
+                while (true) {
+                    if ((position.getColumnInt()-1)+i<=7) {
+                        if (board[position.getRow()-1][(position.getColumnInt()-1)+i].getIsEmpty()) {
+                            valid.add(String.valueOf(position.getRow()) + String.valueOf(position.getColumnInt()+i));
+                            i++;
+                        } else if (board[position.getRow()-1][(position.getColumnInt()-1)+i].getCurrentPiece().getColor() != color){
+                            valid.add(String.valueOf(position.getRow()) + String.valueOf(position.getColumnInt()+i));
+                            break;
+                        } else {
+                            break;
+                        }
+                    } else {
+                        break;
+                    }
+                }
+                //déplacement gauche
+                i = 1;
+                while (true) {
+                    if ((position.getColumnInt()-1)-i>=0) {
+                        if (board[position.getRow()-1][(position.getColumnInt()-1)-i].getIsEmpty()) {
+                            valid.add(String.valueOf(position.getRow()) + String.valueOf(position.getColumnInt()-i));
+                            i++;
+                        } else if (board[position.getRow()-1][(position.getColumnInt()-1)+i].getCurrentPiece().getColor() != color){
+                            valid.add(String.valueOf(position.getRow()) + String.valueOf(position.getColumnInt()-i));
+                            break;
+                        } else {
+                            break;
+                        }
+                    } else {
+                        break;
+                    }
+                }
+                //déplacement vers le centre NOIR
+                i = 1;
+                while (true) {
+                    if (board[(position.getRow()-1)][(position.getColumnInt()-1)].getCurrentPiece().getColor() == 1 && (position.getRow()-1)+i<=7) {
+                        if (board[(position.getRow()-1)+i][position.getColumnInt()-1].getIsEmpty()) {
+                            valid.add(String.valueOf(position.getRow()+i) + String.valueOf(position.getColumnInt()));
+                            i++;
+                        } else if (board[(position.getRow()-1)+i][position.getColumnInt()-1].getCurrentPiece().getColor() != color){
+                            valid.add(String.valueOf(position.getRow()+i) + String.valueOf(position.getColumnInt()));
+                            break;
+                        } else {
+                            break;
+                        }
+                    } else {
+                        break;
+                    }
+                }
+                //déplacement vers l'extérieur NOIR
+                i = 1;
+                while (true) {
+                    if ((position.getRow()-1)-i>=0) {
+                        if (board[(position.getRow()-1)-i][position.getColumnInt()-1].getIsEmpty()) {
+                            valid.add(String.valueOf(position.getRow()-i) + String.valueOf(position.getColumnInt()));
+                            i++;
+                        } else if (board[(position.getRow()-1)-i][position.getColumnInt()-1].getCurrentPiece().getColor() != color){
+                            valid.add(String.valueOf(position.getRow()-i) + String.valueOf(position.getColumnInt()));
+                            break;
+                        } else {
+                            break;
+                        }
+                    } else {
+                        break;
+                    }
+                }
+                //déplacement vers le centre BLANC
+                i = 1;
+                while (true) {
+                    if (board[(position.getRow()-1)][(position.getColumnInt()-1)].getCurrentPiece().getColor() == 2 && (position.getRow()-1)-i>=0) {
+                        if (board[(position.getRow()-1)-i][position.getColumnInt()-1].getIsEmpty()) {
+                            valid.add(String.valueOf(position.getRow()+i) + String.valueOf(position.getColumnInt()));
+                            i++;
+                        } else if (board[(position.getRow()-1)-i][position.getColumnInt()-1].getCurrentPiece().getColor() != color){
+                            valid.add(String.valueOf(position.getRow()-i) + String.valueOf(position.getColumnInt()));
+                            break;
+                        } else {
+                            break;
+                        }
+                    } else {
+                        break;
+                    }
+                }
+                //déplacement l'extérieur BLANC
+                i = 1;
+                while (true) {
+                    if (board[(position.getRow()-1)][(position.getColumnInt()-1)].getCurrentPiece().getColor() == 2 && (position.getRow()-1)+i<=7) {
+                        if (board[(position.getRow()-1)+i][position.getColumnInt()-1].getIsEmpty()) {
+                            valid.add(String.valueOf(position.getRow()-i) + String.valueOf(position.getColumnInt()));
+                            i++;
+                        } else if (board[(position.getRow()-1)+i][position.getColumnInt()-1].getCurrentPiece().getColor() != color){
+                            valid.add(String.valueOf(position.getRow()+i) + String.valueOf(position.getColumnInt()));
+                            break;
+                        } else {
+                            break;
+                        }
+                    } else {
+                        break;
+                    }
+                }
+                //déplacement diagonale vers le centre droite NOIR
+                i = 1;
+                while (true) {
+                    if (board[(position.getRow()-1)][(position.getColumnInt()-1)].getCurrentPiece().getColor() == 1 && (position.getRow()-1)+i<=7 && (position.getColumnInt()-1)+i<=7) {
+                        if (board[(position.getRow()-1)+i][(position.getColumnInt()-1)+i].getIsEmpty()) {
+                            valid.add(String.valueOf(position.getRow()+i) + String.valueOf(position.getColumnInt()+i));
+                            i++;
+                        } else if (board[(position.getRow()-1)+i][(position.getColumnInt()-1)+i].getCurrentPiece().getColor() != color){
+                            valid.add(String.valueOf(position.getRow()+i) + String.valueOf(position.getColumnInt()+i));
+                            break;
+                        } else {
+                            break;
+                        }
+                    } else {
+                        break;
+                    }
+                }
+                //déplacement diagonale vers le centre gauche NOIR
+                i = 1;
+                while (true) {
+                    if (board[(position.getRow()-1)][(position.getColumnInt()-1)].getCurrentPiece().getColor() == 1 && (position.getRow()-1)+i<=7 && (position.getColumnInt()-1)-i>=0) {
+                        if (board[(position.getRow()-1)+i][(position.getColumnInt()-1)-i].getIsEmpty()) {
+                            valid.add(String.valueOf(position.getRow()+i) + String.valueOf(position.getColumnInt()-i));
+                            i++;
+                        } else if (board[(position.getRow()-1)+i][(position.getColumnInt()-1)-i].getCurrentPiece().getColor() != color){
+                            valid.add(String.valueOf(position.getRow()+i) + String.valueOf(position.getColumnInt()-i));
+                            break;
+                        } else {
+                            break;
+                        }
+                    } else {
+                        break;
+                    }
+                }
+                //déplacement diagonale vers l'extérieur droite NOIR
+                i = 1;
+                while (true) {
+                    if (board[(position.getRow()-1)][(position.getColumnInt()-1)].getCurrentPiece().getColor() == 1 && (position.getRow()-1)-i>=0 && (position.getColumnInt()-1)+i<=7) {
+                        if (board[(position.getRow()-1)-i][(position.getColumnInt()-1)+i].getIsEmpty()) {
+                            valid.add(String.valueOf(position.getRow()-i) + String.valueOf(position.getColumnInt()+i));
+                            i++;
+                        } else if (board[(position.getRow()-1)-i][(position.getColumnInt()-1)+i].getCurrentPiece().getColor() != color){
+                            valid.add(String.valueOf(position.getRow()-i) + String.valueOf(position.getColumnInt()+i));
+                            break;
+                        } else {
+                            break;
+                        }
+                    } else {
+                        break;
+                    }
+                }
+                //déplacement diagonale vers l'extérieur gauche NOIR
+                i = 1;
+                while (true) {
+                    if (board[(position.getRow()-1)][(position.getColumnInt()-1)].getCurrentPiece().getColor() == 1 && (position.getRow()-1)-i>=0 && (position.getColumnInt()-1)-i>=0) {
+                        if (board[(position.getRow()-1)-i][(position.getColumnInt()-1)-i].getIsEmpty()) {
+                            valid.add(String.valueOf(position.getRow()-i) + String.valueOf(position.getColumnInt()-i));
+                            i++;
+                        } else if (board[(position.getRow()-1)-i][(position.getColumnInt()-1)+i].getCurrentPiece().getColor() != color){
+                            valid.add(String.valueOf(position.getRow()-i) + String.valueOf(position.getColumnInt()-i));
+                            break;
+                        } else {
+                            break;
+                        }
+                    } else {
+                        break;
+                    }
+                }
+                //déplacement diagonale vers l'extérieur droite BLANC
+                i = 1;
+                while (true) {
+                    if (board[(position.getRow()-1)][(position.getColumnInt()-1)].getCurrentPiece().getColor() == 2 && (position.getRow()-1)+i<=7 && (position.getColumnInt()-1)+i<=7) {
+                        if (board[(position.getRow()-1)+i][(position.getColumnInt()-1)+i].getIsEmpty()) {
+                            valid.add(String.valueOf(position.getRow()+i) + String.valueOf(position.getColumnInt()+i));
+                            i++;
+                        } else if (board[(position.getRow()-1)+i][(position.getColumnInt()-1)+i].getCurrentPiece().getColor() != color){
+                            valid.add(String.valueOf(position.getRow()+i) + String.valueOf(position.getColumnInt()+i));
+                            break;
+                        } else {
+                            break;
+                        }
+                    } else {
+                        break;
+                    }
+                }
+                //déplacement diagonale vers l'extérieur gauche BLANC
+                i = 1;
+                while (true) {
+                    if (board[(position.getRow()-1)][(position.getColumnInt()-1)].getCurrentPiece().getColor() == 2 && (position.getRow()-1)+i<=7 && (position.getColumnInt()-1)-i>=0) {
+                        if (board[(position.getRow()-1)+i][(position.getColumnInt()-1)-i].getIsEmpty()) {
+                            valid.add(String.valueOf(position.getRow()+i) + String.valueOf(position.getColumnInt()-i));
+                            i++;
+                        } else if (board[(position.getRow()-1)+i][(position.getColumnInt()-1)-i].getCurrentPiece().getColor() != color){
+                            valid.add(String.valueOf(position.getRow()+i) + String.valueOf(position.getColumnInt()-i));
+                            break;
+                        } else {
+                            break;
+                        }
+                    } else {
+                        break;
+                    }
+                }
+                //déplacement diagonale vers le centre droite BLANC
+                i = 1;
+                while (true) {
+                    if (board[(position.getRow()-1)][(position.getColumnInt()-1)].getCurrentPiece().getColor() == 2 && (position.getRow()-1)-i>=0 && (position.getColumnInt()-1)+i<=7) {
+                        if (board[(position.getRow()-1)-i][(position.getColumnInt()-1)+i].getIsEmpty()) {
+                            valid.add(String.valueOf(position.getRow()-i) + String.valueOf(position.getColumnInt()+i));
+                            i++;
+                        } else if (board[(position.getRow()-1)-i][(position.getColumnInt()-1)+i].getCurrentPiece().getColor() != color){
+                            valid.add(String.valueOf(position.getRow()-i) + String.valueOf(position.getColumnInt()+i));
+                            break;
+                        } else {
+                            break;
+                        }
+                    } else {
+                        break;
+                    }
+                }
+                //déplacement diagonale vers le centre gauche BLANC
+                i = 1;
+                while (true) {
+                    if (board[(position.getRow()-1)][(position.getColumnInt()-1)].getCurrentPiece().getColor() == 2 && (position.getRow()-1)-i>=0 && (position.getColumnInt()-1)-i>=0) {
+                        if (board[(position.getRow()-1)-i][(position.getColumnInt()-1)-i].getIsEmpty()) {
+                            valid.add(String.valueOf(position.getRow()-i) + String.valueOf(position.getColumnInt()-i));
+                            i++;
+                        } else if (board[(position.getRow()-1)-i][(position.getColumnInt()-1)+i].getCurrentPiece().getColor() != color){
+                            valid.add(String.valueOf(position.getRow()-i) + String.valueOf(position.getColumnInt()-i));
+                            break;
+                        } else {
+                            break;
+                        }
+                    } else {
+                        break;
+                    }
+                }
+                if (valid.contains(expected)){
+                    return true;
+                } else {
+                    return false;
+                }
+            }
+
+            case "N" -> {}
         }
         return false;
     }
